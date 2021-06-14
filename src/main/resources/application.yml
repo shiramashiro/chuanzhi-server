@@ -1,0 +1,11 @@
+spring:
+  data:
+    mongodb:
+      authentication-database: admin
+      username: shiramashiro
+      password: angus20000408.
+      database: owl_town
+      host: 1.116.123.44
+      port: 27017
+server:
+  port: 9000
