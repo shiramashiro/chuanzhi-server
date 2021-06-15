@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 import owl.town.domain.Bookshelf;
+import owl.town.domain.CollectBookshelf;
 
 import java.util.List;
 
@@ -35,4 +36,15 @@ public class BookshelfController {
         return mongoTemplate.findById(id, Bookshelf.class);
     }
 
+    @PostMapping(value = "/set/collectBookshelf")
+    public void setCollectBookshelf(@RequestBody CollectBookshelf collectBookshelf) {
+        mongoTemplate.save(collectBookshelf);
+    }
+
+    @PostMapping(value = "/get/collectBookshelfs")
+    public List<CollectBookshelf> getCollectBookshelfs(@RequestBody CollectBookshelf collectBookshelf) {
+        return mongoTemplate.find(new Query(
+                Criteria.where("user_id").in(collectBookshelf.getUserId())
+        ), CollectBookshelf.class);
+    }
 }
