@@ -6,11 +6,13 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "comments")
-public class Comment {
+public class Comment implements Serializable {
 
     private String id;
 
