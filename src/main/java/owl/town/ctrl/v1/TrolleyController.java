@@ -23,7 +23,7 @@ public class TrolleyController {
 
     @PostMapping(value = "/set/trolley/row")
     public void setTrolleyRow(@RequestBody Trolley trolley) {
-        System.out.println(trolley);
+        mongoTemplate.save(trolley);
     }
 
     @PostMapping(value = "/get/trolley/rows")
@@ -39,12 +39,11 @@ public class TrolleyController {
     @PostMapping(value = "/delete/trolley/row")
     public void deleteTrolleyRow(@RequestBody Trolley trolley) {
         mongoTemplate.remove(
-                new Query(
-                        Criteria
-                                .where("_id")
-                                .in(trolley.getId())
-                )
-                , Trolley.class);
+            new Query(
+                    Criteria
+                            .where("_id")
+                            .in(trolley.getId())
+            ), Trolley.class);
     }
 
     @PostMapping(value = "/delete/trolley/rows")

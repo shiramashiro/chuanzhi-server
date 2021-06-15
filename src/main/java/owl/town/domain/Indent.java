@@ -25,4 +25,18 @@ public class Indent {
 
     private Trolley[] trolley;
 
+    @Field(name = "receive_location")
+    private String receiveLocation;
+
+    @Field(name = "receive_phone")
+    private String receivePhone;
+
+    @Field(name = "receive_name")
+    private String receiveName;
+
+    private String status;
+
+    @Field(name = "pay_way")
+    private String payWay;
+
 }
