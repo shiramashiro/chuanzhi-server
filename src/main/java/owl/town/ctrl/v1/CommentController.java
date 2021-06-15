@@ -31,4 +31,9 @@ public class CommentController {
         }
     }
 
+    @PostMapping(value = "/set/comment")
+    public void setComment(@RequestBody Comment comment) {
+        mongoTemplate.save(comment);
+    }
+
 }

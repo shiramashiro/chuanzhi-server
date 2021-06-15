@@ -25,4 +25,9 @@ public class Comment {
 
     private int cai;
 
+    private String type;
+
+    @Field(name = "bookshelf_id")
+    private String bookshelfId;
+
 }
