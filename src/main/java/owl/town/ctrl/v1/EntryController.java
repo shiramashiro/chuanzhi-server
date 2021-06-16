@@ -38,8 +38,20 @@ public class EntryController {
     }
 
     @PostMapping(value = "signup")
-    public void signup(@RequestBody User user) {
-
+    public R signup(@RequestBody User user) {
+        User result = mongoTemplate.findOne(
+                new Query(
+                    Criteria
+                            .where("username")
+                            .in(user.getUsername())
+        ), User.class);
+        if (result == null) {
+            user.setProfilePhoto("https://owl-town.oss-cn-chengdu.aliyuncs.com/img/user/default-profile-photo.png");
+            mongoTemplate.save(user);
+            return new R().ok("注册成功");
+        } else {
+            return new R().fail("已存在用户名");
+        }
     }
 
 }

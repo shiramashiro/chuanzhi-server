@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 import owl.town.domain.Bookshelf;
 import owl.town.domain.CollectBookshelf;
+import owl.town.domain.Press;
+import owl.town.utils.R;
 
 import java.util.List;
 
@@ -29,6 +31,24 @@ public class BookshelfController {
         } else {
             return mongoTemplate.find(new Query(Criteria.where("types").in(types)), Bookshelf.class);
         }
+    }
+
+    @PostMapping(value = "/get/bookshelf/by/pressId/{pressId}")
+    public R getBookshelfByPressId(@PathVariable String pressId) {
+        List<Bookshelf> result = mongoTemplate.find(
+                new Query(
+                        Criteria.where("press_id").in(pressId)
+                ), Bookshelf.class);
+        return new R().ok(result);
+    }
+
+    @PostMapping(value = "/get/press/by/id/{id}")
+    public R getPressById(@PathVariable String id) {
+        Press press = mongoTemplate.findOne(
+                new Query(
+                        Criteria.where("_id").in(id)
+                ), Press.class);
+        return new R().ok(press);
     }
 
     @PostMapping(value = "/get/bookshelf/{id}")

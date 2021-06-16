@@ -27,4 +27,14 @@ public class User implements Serializable {
 
     private int level;
 
+    private String email;
+
+    private String sex;
+
+    private String phone;
+
+    private String profile;
+
+    private String date;
+
 }

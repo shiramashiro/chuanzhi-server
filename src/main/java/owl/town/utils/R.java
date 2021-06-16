@@ -43,6 +43,13 @@ public class R implements Serializable {
         return this;
     }
 
+    public R ok(String message) {
+        this.code = 200;
+        this.data = "";
+        this.message = message;
+        return this;
+    }
+
     public R ok(Object data, String message) {
         this.code = 200;
         this.data = data;

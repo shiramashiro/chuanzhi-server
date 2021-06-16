@@ -43,4 +43,7 @@ public class Bookshelf implements Serializable {
 
     private Comment[] comments;
 
+    @Field(name = "press_id")
+    private String pressId;
+
 }
