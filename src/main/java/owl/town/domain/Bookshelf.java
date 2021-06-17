@@ -24,7 +24,7 @@ public class Bookshelf implements Serializable {
 
     private String profile;
 
-    private Author[] authors;
+    private String[] authors;
 
     private String press;
 
