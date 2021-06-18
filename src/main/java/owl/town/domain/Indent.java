@@ -41,4 +41,7 @@ public class Indent implements Serializable {
     @Field(name = "pay_way")
     private String payWay;
 
+    @Field(name = "status_type")
+    private String statusType;
+
 }
