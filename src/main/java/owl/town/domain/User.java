@@ -37,4 +37,7 @@ public class User implements Serializable {
 
     private String date;
 
+    @Field(name = "is_admin")
+    private boolean isAdmin;
+
 }
