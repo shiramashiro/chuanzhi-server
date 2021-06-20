@@ -15,7 +15,7 @@ import java.util.Map;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/api/admin/v1")
-public class ManageUserController {
+public class ManageUsersController {
 
     private MongoTemplate mongoTemplate;
 
