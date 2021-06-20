@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import owl.town.domain.User;
 import owl.town.utils.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @CrossOrigin
 @RestController
 @RequestMapping(value = "/api/v1")
@@ -47,6 +50,7 @@ public class EntryController {
         ), User.class);
         if (result == null) {
             user.setProfilePhoto("https://owl-town.oss-cn-chengdu.aliyuncs.com/img/user/default-profile-photo.png");
+            user.setDate(new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date()));
             mongoTemplate.save(user);
             return new R().ok("注册成功");
         } else {
