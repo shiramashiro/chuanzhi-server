@@ -18,7 +18,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class R implements Serializable {
+public class Result implements Serializable {
 
     // 状态响应码，200代表正常，400代表未找到，500代表错误请求及无返回
     private Integer code;
@@ -29,42 +29,42 @@ public class R implements Serializable {
     // 返回的消息
     private String message;
 
-    public R ok() {
+    public Result correct() {
         this.code = 200;
         this.data = "";
         this.message = "";
         return this;
     }
 
-    public R ok(Object data) {
+    public Result correct(Object data) {
         this.code = 200;
         this.data = data;
         this.message = "";
         return this;
     }
 
-    public R ok(String message) {
+    public Result correct(String message) {
         this.code = 200;
         this.data = "";
         this.message = message;
         return this;
     }
 
-    public R ok(Object data, String message) {
+    public Result correct(Object data, String message) {
         this.code = 200;
         this.data = data;
         this.message = message;
         return this;
     }
 
-    public R fail(String message) {
+    public Result fail(String message) {
         this.code = 500;
         this.data = "";
         this.message = message;
         return this;
     }
 
-    public R fail() {
+    public Result fail() {
         this.code = 500;
         this.data = "";
         this.message = "";

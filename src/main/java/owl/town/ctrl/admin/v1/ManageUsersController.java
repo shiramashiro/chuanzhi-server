@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.bind.annotation.*;
 import owl.town.domain.User;
-import owl.town.utils.R;
+import owl.town.utils.Result;
 
 import java.util.List;
 import java.util.Map;
@@ -25,9 +25,9 @@ public class ManageUsersController {
     }
 
     @PostMapping(value = "/get/users")
-    public R getUsers() {
+    public Result getUsers() {
         List<User> users = mongoTemplate.findAll(User.class);
-        return new R().ok(users);
+        return new Result().correct(users);
     }
 
     @PostMapping(value = "/update/user")

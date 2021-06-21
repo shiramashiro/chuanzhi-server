@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.bind.annotation.*;
 import owl.town.domain.Bookshelf;
-import owl.town.utils.R;
+import owl.town.utils.Result;
 
 import java.util.Map;
 
@@ -24,8 +24,8 @@ public class ManageBookshelfController {
     }
 
     @PostMapping(value = "/get/bookshelf")
-    public R getBookshelf() {
-        return new R().ok(mongoTemplate.findAll(Bookshelf.class));
+    public Result getBookshelf() {
+        return new Result().correct(mongoTemplate.findAll(Bookshelf.class));
     }
 
     @PostMapping(value = "/update/bookshelf")

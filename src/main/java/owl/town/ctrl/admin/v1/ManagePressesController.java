@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.bind.annotation.*;
 import owl.town.domain.Press;
-import owl.town.utils.R;
+import owl.town.utils.Result;
 
 import java.util.List;
 import java.util.Map;
@@ -26,9 +26,9 @@ public class ManagePressesController {
 
 
     @PostMapping(value = "/get/presses")
-    public R getPresses() {
+    public Result getPresses() {
         List<Press> presses = mongoTemplate.findAll(Press.class);
-        return new R().ok(presses);
+        return new Result().correct(presses);
     }
 
     @PostMapping(value = "/update/press")

@@ -3,16 +3,19 @@ package owl.town.ctrl.v1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
-import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 import owl.town.domain.Bookshelf;
 import owl.town.domain.CollectBookshelf;
 import owl.town.domain.Press;
-import owl.town.utils.R;
+import owl.town.utils.Result;
 
 import java.util.List;
+import java.util.Map;
+
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.*;
 
 @CrossOrigin
 @RestController
@@ -35,22 +38,37 @@ public class BookshelfController {
         }
     }
 
+    @PostMapping(value = "/get/literature/by/stint/and/symbol")
+    public Result getLiteratureByLimitAndSymbol(@RequestBody Map<String, Object> params) {
+        Aggregation aggregation = newAggregation(
+                limit((Integer) params.get("stint")),
+                match(Criteria.where("symbol").is(params.get("symbol")))
+        );
+        AggregationResults<Bookshelf> results = mongoTemplate.aggregate(
+                aggregation,
+                "bookshelfs",
+                Bookshelf.class
+        );
+        List<Bookshelf> mappedResult = results.getMappedResults();
+        return new Result().correct(mappedResult);
+    }
+
     @PostMapping(value = "/get/bookshelf/by/pressId/{pressId}")
-    public R getBookshelfByPressId(@PathVariable String pressId) {
+    public Result getBookshelfByPressId(@PathVariable String pressId) {
         List<Bookshelf> result = mongoTemplate.find(
                 new Query(
                         Criteria.where("press_id").in(pressId)
                 ), Bookshelf.class);
-        return new R().ok(result);
+        return new Result().correct(result);
     }
 
     @PostMapping(value = "/get/press/by/id/{id}")
-    public R getPressById(@PathVariable String id) {
+    public Result getPressById(@PathVariable String id) {
         Press press = mongoTemplate.findOne(
                 new Query(
                         Criteria.where("_id").in(id)
                 ), Press.class);
-        return new R().ok(press);
+        return new Result().correct(press);
     }
 
     @PostMapping(value = "/get/bookshelf/{id}")

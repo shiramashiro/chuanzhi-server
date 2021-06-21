@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 import owl.town.domain.User;
-import owl.town.utils.R;
+import owl.town.utils.Result;
 
 @CrossOrigin
 @RestController
@@ -29,17 +29,17 @@ public class AdminEntryController {
      * @return user
      */
     @PostMapping(value = "/signin")
-    public R signin(@RequestBody User reqBody) {
+    public Result signin(@RequestBody User reqBody) {
         User user = mongoTemplate.findOne(new Query(Criteria.where("username").is(reqBody.getUsername())), User.class);
         if (user == null) {
-            return new R().fail("登陆失败，用户未注册");
+            return new Result().fail("登陆失败，用户未注册");
         } else {
             if (!reqBody.getPassword().equals(user.getPassword())) {
-                return new R().fail("登陆失败，密码错误");
+                return new Result().fail("登陆失败，密码错误");
             } else if (!user.isAdmin()) {
-                return new R().fail("登陆失败，非管理员用户");
+                return new Result().fail("登陆失败，非管理员用户");
             } else {
-                return new R().ok(user, "登陆成功");
+                return new Result().correct(user, "登陆成功");
             }
         }
     }

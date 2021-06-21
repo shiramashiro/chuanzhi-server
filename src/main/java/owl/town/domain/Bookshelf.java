@@ -46,4 +46,6 @@ public class Bookshelf implements Serializable {
     @Field(name = "press_id")
     private String pressId;
 
+    private String symbol;
+
 }

@@ -2,14 +2,12 @@ package owl.town.ctrl.admin.v1;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.Aggregation;
-import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.web.bind.annotation.*;
 import owl.town.domain.Indent;
-import owl.town.utils.R;
+import owl.town.utils.Result;
 
 import java.util.List;
 import java.util.Map;
@@ -27,7 +25,7 @@ public class ManageIndentsController {
     }
 
     @PostMapping(value = "/get/indents")
-    public R getIndents(@RequestBody Map<String, Object> reqBody) {
+    public Result getIndents(@RequestBody Map<String, Object> reqBody) {
         List<Indent> indents;
         if (reqBody.get("statusType").equals("noStatusType")) { // noStatusType代表查询所有的订单，包括正在发货和未发货的订单
             indents = mongoTemplate.findAll(Indent.class);
@@ -39,7 +37,7 @@ public class ManageIndentsController {
                                     .is(reqBody.get("statusType"))
             ), Indent.class);
         }
-        return new R().ok(indents);
+        return new Result().correct(indents);
     }
 
     @PostMapping(value = "/cutoff/indent")
