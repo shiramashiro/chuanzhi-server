@@ -26,17 +26,15 @@ public class EntryController {
     @PostMapping(value = "/signin")
     public Result signin(@RequestBody User user) {
         User result = mongoTemplate.findOne(
-                new Query(
-                        Criteria
-                                .where("username")
-                                .in(user.getUsername())
-                                .and("password")
-                                .in(user.getPassword())
-                ), User.class);
+                new Query(Criteria.where("username").is(user.getUsername())), User.class);
         if (result == null) {
             return new Result().fail("登陆失败，未找到该用户。");
         } else {
-            return new Result().correct(result, "登陆成功");
+            if (!user.getPassword().equals(result.getPassword())) {
+                return new Result().fail("登陆失败，密码错误");
+            } else {
+                return new Result().correct(result, "登陆成功");
+            }
         }
     }
 
