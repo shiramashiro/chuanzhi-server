@@ -11,8 +11,8 @@
     <groupId>owl.town</groupId>
     <artifactId>owl-town-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>owl-town-server-9000</name>
-    <description>owl town server 9000</description>
+    <name>owl-town-server</name>
+    <description>owl town server</description>
     <properties>
         <java.version>11</java.version>
     </properties>
